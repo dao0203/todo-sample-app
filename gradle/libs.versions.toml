@@ -13,6 +13,7 @@ material = "1.9.0"
 ksp = "1.9.0-1.0.13"
 hilt = "2.48"
 hilt-navigation-compose = "1.1.0"
+room = "2.6.1"
 
 [libraries]
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -37,12 +38,20 @@ hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "room" }
 
 todo-android-application = { id = "todo_sample_app.android.application", version = "unspecified" }
 todo-android-application-compose = { id = "todo_sample_app.android.application.compose", version = "unspecified" }
@@ -50,3 +59,4 @@ todo-android-feature = { id = "todo_sample_app.android.library.feature", version
 todo-android-library = { id = "todo_sample_app.android.library", version = "unspecified" }
 todo-android-library-compose = { id = "todo_sample_app.android.library.compose", version = "unspecified" }
 todo-android-hilt = { id = "todo_sample_app.android.hilt", version = "unspecified" }
+todo-android-room = { id = "todo_sample_app.android.room", version = "unspecified" }
