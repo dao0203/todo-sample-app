@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.model.Todo
 
 @Entity(
     tableName = "todos",
@@ -24,4 +25,24 @@ data class TodoEntity(
     val categoryId: Int,
     @ColumnInfo(name = "is_completed")
     val isCompleted: Boolean,
-)
+) {
+    fun toTodo() = Todo(
+        id = id,
+        title = title,
+        description = description,
+        categoryId = categoryId,
+        isCompleted = isCompleted
+    )
+
+    companion object {
+        fun fromTodo(todo: Todo) = TodoEntity(
+            id = todo.id,
+            title = todo.title,
+            description = todo.description,
+            categoryId = todo.categoryId,
+            isCompleted = todo.isCompleted
+        )
+    }
+}
+
+fun List<TodoEntity>.toTodos() = map(TodoEntity::toTodo)
