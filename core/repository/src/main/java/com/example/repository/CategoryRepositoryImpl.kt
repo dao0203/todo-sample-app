@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor(
+internal class CategoryRepositoryImpl @Inject constructor(
     private val categoryEntityDao: CategoryEntityDao
 ) : CategoryRepository {
     override fun getAll(): Flow<List<Category>> =
