@@ -18,4 +18,10 @@ interface TodoEntityDao {
 
     @Query("SELECT * FROM todos WHERE category_id = :categoryId")
     fun getAllByCategory(categoryId: Int): Flow<List<TodoEntity>>
+
+    @Query("UPDATE todos SET is_completed = true WHERE id = :id")
+    fun complete(id: Int)
+
+    @Query("UPDATE todos SET is_completed = false WHERE id = :id")
+    fun undoComplete(id: Int)
 }
