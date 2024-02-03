@@ -11,8 +11,10 @@ internal fun NavController.navigateToAddTodo() {
     navigate(ADD_TODO_ROUTE)
 }
 
-internal fun NavGraphBuilder.addTodoScreen() {
+internal fun NavGraphBuilder.addTodoScreen(
+    popBackStack: () -> Unit
+) {
     composable(ADD_TODO_ROUTE) {
-        AddTodoScreen()
+        AddTodoScreen(onClickBack = popBackStack)
     }
 }
