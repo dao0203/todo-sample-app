@@ -10,8 +10,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.home.navigation.TODO_LIST_ROUTE
-import com.example.home.navigation.todoListScreen
+import com.example.home.navigation.HOME_GRAPH_ROUTE
+import com.example.home.navigation.homeNavGraph
 import com.example.todo_sample_app.ui.theme.TodosampleappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,9 +29,9 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = TODO_LIST_ROUTE
+                        startDestination = HOME_GRAPH_ROUTE
                     ) {
-                        todoListScreen()
+                        homeNavGraph(navController)
                     }
                 }
             }

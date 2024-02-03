@@ -24,13 +24,17 @@ import com.example.model.Category
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onClickAddCategory: () -> Unit,
+    onClickAddTodo: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeContent(
         uiState.value,
-        viewModel::changeCategory
+        viewModel::changeCategory,
+        onClickAddCategory,
+        onClickAddTodo
     )
 }
 
@@ -38,7 +42,9 @@ fun HomeScreen(
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
-    onCategorySelected: (Int) -> Unit
+    onCategorySelected: (Int) -> Unit,
+    onClickAddCategory: () -> Unit,
+    onClickAddTodo: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -52,7 +58,7 @@ private fun HomeContent(
                 is HomeUiState.Success -> HomeContentSuccess(
                     uiState,
                     onCategorySelected,
-                    {}
+                    onClickAddCategory
                 )
             }
         }
