@@ -32,6 +32,7 @@ internal fun Project.configureAndroidCompose(
             add("implementation", libs.findLibrary("ui-tooling").get())
             add("implementation", libs.findLibrary("ui-tooling-preview").get())
             add("implementation", libs.findLibrary("material3").get())
+            add("implementation", libs.findLibrary("navigation.compose").get())
 
             add("testImplementation", libs.findLibrary("ui-test-manifest").get())
             add("testImplementation", libs.findLibrary("junit").get())
