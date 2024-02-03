@@ -14,19 +14,19 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-private data class TodoListViewModelState(
+private data class HomeViewModelState(
     val selectedCategoryId: Int = 1,
 )
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     private val todoRepository: TodoRepository,
 ) : ViewModel() {
 
-    private val vmState = MutableStateFlow(TodoListViewModelState())
+    private val vmState = MutableStateFlow(HomeViewModelState())
 
-    val uiState: StateFlow<TodoListUiState> = combine(
+    val uiState: StateFlow<HomeUiState> = combine(
         categoryRepository.getAll(),
         todoRepository.getByCategory(vmState.value.selectedCategoryId),
         vmState
@@ -36,7 +36,7 @@ class TodoListViewModel @Inject constructor(
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            TodoListUiState.Loading()
+            HomeUiState.Loading()
         )
 
     fun changeCategory(categoryId: Int) {
@@ -46,10 +46,10 @@ class TodoListViewModel @Inject constructor(
     private fun convertToUiState(
         category: List<Category>,
         todos: List<Todo>,
-        vmState: TodoListViewModelState
+        vmState: HomeViewModelState
     ) = when {
-        category.isEmpty() -> TodoListUiState.Error("No categories found")
-        else -> TodoListUiState.Success(
+        category.isEmpty() -> HomeUiState.Error("No categories found")
+        else -> HomeUiState.Success(
             todos = todos,
             categories = category,
             selectedCategoryId = vmState.selectedCategoryId

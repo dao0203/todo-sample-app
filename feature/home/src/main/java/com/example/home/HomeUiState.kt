@@ -3,7 +3,7 @@ package com.example.home
 import com.example.model.Category
 import com.example.model.Todo
 
-sealed interface TodoListUiState {
+sealed interface HomeUiState {
     val todos: List<Todo>
     val categories: List<Category>
     val isLoading: Boolean
@@ -12,19 +12,19 @@ sealed interface TodoListUiState {
         override val todos: List<Todo> = emptyList(),
         override val categories: List<Category> = emptyList(),
         override val isLoading: Boolean = true
-    ) : TodoListUiState
+    ) : HomeUiState
 
     data class Success(
         override val todos: List<Todo>,
         override val categories: List<Category>,
         val selectedCategoryId: Int,
         override val isLoading: Boolean = false
-    ) : TodoListUiState
+    ) : HomeUiState
 
     data class Error(
         val errorMessage: String,
         override val categories: List<Category> = emptyList(),
         override val todos: List<Todo> = emptyList(),
         override val isLoading: Boolean = false
-    ) : TodoListUiState
+    ) : HomeUiState
 }

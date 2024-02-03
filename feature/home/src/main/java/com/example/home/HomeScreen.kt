@@ -24,7 +24,7 @@ import com.example.model.Category
 
 @Composable
 fun TodoListScreen(
-    viewModel: TodoListViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -37,7 +37,7 @@ fun TodoListScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TodoListContent(
-    uiState: TodoListUiState,
+    uiState: HomeUiState,
     onCategorySelected: (Int) -> Unit
 ) {
     Scaffold(
@@ -47,9 +47,9 @@ private fun TodoListContent(
     ) {
         Box(Modifier.padding(it)) {
             when (uiState) {
-                is TodoListUiState.Loading -> TodoListContentLoading(uiState)
-                is TodoListUiState.Error -> TodoListContentError(uiState)
-                is TodoListUiState.Success -> TodoListContentSuccess(
+                is HomeUiState.Loading -> TodoListContentLoading(uiState)
+                is HomeUiState.Error -> TodoListContentError(uiState)
+                is HomeUiState.Success -> TodoListContentSuccess(
                     uiState,
                     onCategorySelected,
                     {}
@@ -61,7 +61,7 @@ private fun TodoListContent(
 
 @Composable
 private fun TodoListContentLoading(
-    uiState: TodoListUiState.Loading,
+    uiState: HomeUiState.Loading,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -74,7 +74,7 @@ private fun TodoListContentLoading(
 
 @Composable
 private fun TodoListContentError(
-    uiState: TodoListUiState.Error,
+    uiState: HomeUiState.Error,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -90,7 +90,7 @@ private fun TodoListContentError(
 
 @Composable
 private fun TodoListContentSuccess(
-    uiState: TodoListUiState.Success,
+    uiState: HomeUiState.Success,
     onCategorySelected: (Int) -> Unit,
     onClickAddCategory: () -> Unit,
     modifier: Modifier = Modifier
