@@ -1,9 +1,9 @@
-package com.example.todo.navigation
+package com.example.home.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.todo.TodoListScreen
+import com.example.home.TodoListScreen
 
 const val TODO_LIST_ROUTE = "todoList"
 
