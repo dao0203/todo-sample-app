@@ -23,4 +23,3 @@ include(":core:local")
 include(":core:model")
 
 include(":feature:todo")
-include(":feature:category")
