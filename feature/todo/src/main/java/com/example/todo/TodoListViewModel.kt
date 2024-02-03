@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 private data class TodoListViewModelState(
-    val selectedCategoryId: Int = 0,
+    val selectedCategoryId: Int = 1,
 )
 
 @HiltViewModel
