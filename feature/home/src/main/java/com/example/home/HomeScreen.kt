@@ -23,12 +23,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.model.Category
 
 @Composable
-fun TodoListScreen(
+fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
-    TodoListContent(
+    HomeContent(
         uiState.value,
         viewModel::changeCategory
     )
@@ -36,20 +36,20 @@ fun TodoListScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TodoListContent(
+private fun HomeContent(
     uiState: HomeUiState,
     onCategorySelected: (Int) -> Unit
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Todo List") })
+            TopAppBar(title = { Text("Home") })
         }
     ) {
         Box(Modifier.padding(it)) {
             when (uiState) {
-                is HomeUiState.Loading -> TodoListContentLoading(uiState)
-                is HomeUiState.Error -> TodoListContentError(uiState)
-                is HomeUiState.Success -> TodoListContentSuccess(
+                is HomeUiState.Loading -> HomeContentLoading(uiState)
+                is HomeUiState.Error -> HomeContentError(uiState)
+                is HomeUiState.Success -> HomeContentSuccess(
                     uiState,
                     onCategorySelected,
                     {}
@@ -60,7 +60,7 @@ private fun TodoListContent(
 }
 
 @Composable
-private fun TodoListContentLoading(
+private fun HomeContentLoading(
     uiState: HomeUiState.Loading,
     modifier: Modifier = Modifier
 ) {
@@ -73,7 +73,7 @@ private fun TodoListContentLoading(
 }
 
 @Composable
-private fun TodoListContentError(
+private fun HomeContentError(
     uiState: HomeUiState.Error,
     modifier: Modifier = Modifier
 ) {
@@ -89,7 +89,7 @@ private fun TodoListContentError(
 }
 
 @Composable
-private fun TodoListContentSuccess(
+private fun HomeContentSuccess(
     uiState: HomeUiState.Success,
     onCategorySelected: (Int) -> Unit,
     onClickAddCategory: () -> Unit,
