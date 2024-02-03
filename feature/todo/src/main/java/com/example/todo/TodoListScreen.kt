@@ -4,8 +4,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -46,7 +49,11 @@ private fun TodoListContent(
             when (uiState) {
                 is TodoListUiState.Loading -> TodoListContentLoading(uiState)
                 is TodoListUiState.Error -> TodoListContentError(uiState)
-                is TodoListUiState.Success -> TodoListContentSuccess(uiState, onCategorySelected)
+                is TodoListUiState.Success -> TodoListContentSuccess(
+                    uiState,
+                    onCategorySelected,
+                    {}
+                )
             }
         }
     }
@@ -85,13 +92,15 @@ private fun TodoListContentError(
 private fun TodoListContentSuccess(
     uiState: TodoListUiState.Success,
     onCategorySelected: (Int) -> Unit,
+    onClickAddCategory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column {
+    Column(modifier) {
         CategoryTabs(
             categories = uiState.categories,
             selectedCategoryId = uiState.selectedCategoryId,
-            onCategorySelected = onCategorySelected
+            onCategorySelected = onCategorySelected,
+            onClickAddCategory = onClickAddCategory
         )
         LazyColumn {
             items(uiState.todos.size) { index ->
@@ -105,16 +114,34 @@ private fun TodoListContentSuccess(
 private fun CategoryTabs(
     categories: List<Category>,
     selectedCategoryId: Int,
-    onCategorySelected: (Int) -> Unit
+    onCategorySelected: (Int) -> Unit,
+    onClickAddCategory: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    TabRow(selectedTabIndex = categories.indexOfFirst { it.id == selectedCategoryId }) {
+    TabRow(
+        modifier = modifier,
+        selectedTabIndex = categories.indexOfFirst { it.id == selectedCategoryId }
+    ) {
         categories.forEach { category ->
             Tab(
                 selected = category.id == selectedCategoryId,
                 onClick = { onCategorySelected(category.id) }
             ) {
-                Text(category.name)
+                Text(
+                    category.name,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
             }
+        }
+        Tab(
+            selected = false,
+            onClick = onClickAddCategory,
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Add category",
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
     }
 }
