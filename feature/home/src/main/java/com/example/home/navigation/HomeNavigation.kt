@@ -39,6 +39,8 @@ fun NavGraphBuilder.homeNavGraph(
             onClickAddTodo = navController::navigateToAddTodo
         )
         addTodoScreen()
-        addCategoryScreen()
+        addCategoryScreen(
+            popBackStack = navController::popBackStack
+        )
     }
 }

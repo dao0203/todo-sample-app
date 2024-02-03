@@ -11,8 +11,12 @@ internal fun NavController.navigateToAddCategory() {
     navigate(ADD_CATEGORY_ROUTE)
 }
 
-internal fun NavGraphBuilder.addCategoryScreen() {
+internal fun NavGraphBuilder.addCategoryScreen(
+    popBackStack: () -> Unit
+) {
     composable(ADD_CATEGORY_ROUTE) {
-        AddCategoryScreen()
+        AddCategoryScreen(
+            onClickBack = popBackStack
+        )
     }
 }
