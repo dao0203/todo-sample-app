@@ -10,8 +10,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.todo.navigation.TODO_LIST_ROUTE
-import com.example.todo.navigation.todoListScreen
+import com.example.home.navigation.TODO_LIST_ROUTE
+import com.example.home.navigation.todoListScreen
 import com.example.todo_sample_app.ui.theme.TodosampleappTheme
 import dagger.hilt.android.AndroidEntryPoint
 

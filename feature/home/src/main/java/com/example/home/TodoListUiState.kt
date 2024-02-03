@@ -1,4 +1,4 @@
-package com.example.todo
+package com.example.home
 
 import com.example.model.Category
 import com.example.model.Todo

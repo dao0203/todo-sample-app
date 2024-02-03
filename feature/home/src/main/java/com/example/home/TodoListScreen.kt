@@ -1,4 +1,4 @@
-package com.example.todo
+package com.example.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

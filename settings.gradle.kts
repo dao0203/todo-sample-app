@@ -22,4 +22,4 @@ include(":core:repository")
 include(":core:local")
 include(":core:model")
 
-include(":feature:todo")
+include(":feature:home")

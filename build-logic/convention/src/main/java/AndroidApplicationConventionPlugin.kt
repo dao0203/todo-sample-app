@@ -22,7 +22,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:repository"))
                 add("implementation", project(":core:model"))
 
-                add("implementation", project(":feature:todo"))
+                add("implementation", project(":feature:home"))
             }
         }
     }
