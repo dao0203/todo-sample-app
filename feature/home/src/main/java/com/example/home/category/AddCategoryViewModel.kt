@@ -33,6 +33,7 @@ class AddCategoryViewModel @Inject constructor(
     val uiState: StateFlow<AddCategoryUiState> = vmState.map {
         AddCategoryUiState(
             name = it.name,
+            enabledCompleteButton = it.enabledCompleteButton,
             isLoading = it.isLoading
         )
     }.stateIn(
