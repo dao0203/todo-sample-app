@@ -7,6 +7,7 @@ import com.example.model.Todo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ class TodoRepositoryImpl @Inject constructor(
         todoEntityDao.getCompletedByCategory(categoryId).map { it.toTodos() }
 
     override fun observeById(todoId: Int): Flow<Todo> =
-        todoEntityDao.getById(todoId).map { it.toTodo() }
+        todoEntityDao.getById(todoId).mapNotNull { it.toTodo() }
 
     override suspend fun create(todo: Todo) {
         withContext(Dispatchers.IO) {
