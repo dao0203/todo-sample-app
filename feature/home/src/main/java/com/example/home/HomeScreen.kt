@@ -50,6 +50,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onClickAddCategory: () -> Unit,
     onClickAddTodo: () -> Unit,
+    onClickTodo: (Int) -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val snackBarHostState = remember { SnackbarHostState() }
