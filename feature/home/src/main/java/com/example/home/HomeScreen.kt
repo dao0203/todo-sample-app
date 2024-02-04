@@ -119,7 +119,7 @@ private fun HomeContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Home") },
+                title = { Text("ホーム") },
                 actions = {
                     HomeMoreVertDropDownMenu(
                         expanded = uiState.expandedDropDownMenu,
