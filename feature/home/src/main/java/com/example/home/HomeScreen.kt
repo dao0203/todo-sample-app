@@ -60,6 +60,7 @@ fun HomeScreen(
             when (it) {
                 is HomeUiEvent.NavigateToAddCategory -> onClickAddCategory()
                 is HomeUiEvent.NavigateToAddTodo -> onClickAddTodo()
+                is HomeUiEvent.NavigateToDetail -> onClickTodo(it.todoId)
                 is HomeUiEvent.CompletionChanged -> {
                     val result = snackBarHostState.showSnackbar(
                         message = it.todo.title + " を完了しました",
@@ -87,7 +88,8 @@ fun HomeScreen(
         onDismissDropDownMenu = viewModel::dismissDropDownMenu,
         onClickDeleteCategory = viewModel::showConfirmDeleteDialog,
         onClickMoreButton = viewModel::expandDropDownMenu,
-        onClickDisplayableCompletedTodos = viewModel::toggleShowCompletedTodos
+        onClickDisplayableCompletedTodos = viewModel::toggleShowCompletedTodos,
+        onClickTodo = viewModel::navigateToDetail
     )
 }
 
@@ -105,7 +107,8 @@ private fun HomeContent(
     onDismissDropDownMenu: () -> Unit,
     onClickDeleteCategory: () -> Unit,
     onClickMoreButton: () -> Unit,
-    onClickDisplayableCompletedTodos: () -> Unit
+    onClickDisplayableCompletedTodos: () -> Unit,
+    onClickTodo: (Todo) -> Unit
 ) {
     if (uiState.showConfirmDeleteDialog) {
         ConfirmDeleteDialog(
@@ -150,14 +153,15 @@ private fun HomeContent(
     ) {
         Box(Modifier.padding(it)) {
             when (uiState) {
-                is HomeUiState.Loading -> HomeContentLoading(uiState)
+                is HomeUiState.Loading -> HomeContentLoading()
                 is HomeUiState.Error -> HomeContentError(uiState)
                 is HomeUiState.Success -> HomeContentSuccess(
                     uiState = uiState,
                     onSelectCategory = onSelectCategory,
                     onClickAddCategory = onClickAddCategory,
                     onClickTodoComplete = onClickTodoComplete,
-                    onClickDisplayableCompletedTodos = onClickDisplayableCompletedTodos
+                    onClickDisplayableCompletedTodos = onClickDisplayableCompletedTodos,
+                    onClickTodo = onClickTodo
                 )
             }
         }
@@ -166,7 +170,6 @@ private fun HomeContent(
 
 @Composable
 private fun HomeContentLoading(
-    uiState: HomeUiState.Loading,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -200,6 +203,7 @@ private fun HomeContentSuccess(
     onClickAddCategory: () -> Unit,
     onClickTodoComplete: (Todo) -> Unit,
     onClickDisplayableCompletedTodos: () -> Unit,
+    onClickTodo: (Todo) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
@@ -213,7 +217,7 @@ private fun HomeContentSuccess(
             items(uiState.uncompletedTodos.size) { index ->
                 UncompletedTodoItem(
                     todo = uiState.uncompletedTodos[index],
-                    onClick = {},
+                    onClick = onClickTodo,
                     onClickCheckbox = onClickTodoComplete,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -253,7 +257,7 @@ private fun HomeContentSuccess(
                 items(uiState.completedTodos.size) { index ->
                     CompletedTodoItem(
                         todo = uiState.completedTodos[index],
-                        onClick = {},
+                        onClick = onClickTodo,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)

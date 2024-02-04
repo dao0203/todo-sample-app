@@ -125,6 +125,10 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch { _uiEvent.emit(HomeUiEvent.NavigateToAddTodo) }
     }
 
+    fun navigateToDetail(todo: Todo) {
+        viewModelScope.launch { _uiEvent.emit(HomeUiEvent.NavigateToDetail(todo.id)) }
+    }
+
     private fun convertToUiState(
         category: List<Category>,
         uncompletedTodos: List<Todo>,
