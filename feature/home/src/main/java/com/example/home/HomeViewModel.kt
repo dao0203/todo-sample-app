@@ -22,6 +22,8 @@ import javax.inject.Inject
 
 private data class HomeViewModelState(
     val selectedCategoryId: Int = 1,
+    val showConfirmDeleteDialog: Boolean = false,
+    val expandedDropDownMenu: Boolean = false,
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -64,10 +66,41 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun showConfirmDeleteDialog() {
+        vmState.update {
+            it.copy(
+                showConfirmDeleteDialog = true,
+                expandedDropDownMenu = false
+            )
+        }
+    }
+
+    fun dismissConfirmDeleteDialog() {
+        vmState.update { it.copy(showConfirmDeleteDialog = false) }
+    }
+
+    fun deleteCategory() {
+        viewModelScope.launch {
+            val id = vmState.value.selectedCategoryId
+            vmState.update { it.copy(selectedCategoryId = 1) }
+            categoryRepository.delete(id)
+            vmState.update { it.copy(showConfirmDeleteDialog = false) }
+        }
+    }
+
+    fun expandDropDownMenu() {
+        vmState.update { it.copy(expandedDropDownMenu = true) }
+    }
+
+    fun dismissDropDownMenu() {
+        vmState.update { it.copy(expandedDropDownMenu = false) }
+    }
+
     fun changeCategory(categoryId: Int) {
         vmState.update { it.copy(selectedCategoryId = categoryId) }
     }
 
+    //navigation
     fun navigateToAddCategory() {
         viewModelScope.launch { _uiEvent.emit(HomeUiEvent.NavigateToAddCategory) }
     }
@@ -81,11 +114,18 @@ class HomeViewModel @Inject constructor(
         todos: List<Todo>,
         vmState: HomeViewModelState
     ) = when {
-        category.isEmpty() -> HomeUiState.Error("No categories found")
+        category.isEmpty() -> HomeUiState.Error(
+            "No categories found",
+            showConfirmDeleteDialog = vmState.showConfirmDeleteDialog,
+            expandedDropDownMenu = vmState.expandedDropDownMenu
+        )
+
         else -> HomeUiState.Success(
             todos = todos,
             categories = category,
-            selectedCategoryId = vmState.selectedCategoryId
+            selectedCategoryId = vmState.selectedCategoryId,
+            showConfirmDeleteDialog = vmState.showConfirmDeleteDialog,
+            expandedDropDownMenu = vmState.expandedDropDownMenu
         )
     }
 }

@@ -2,9 +2,11 @@ package com.example.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -30,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.home.component.ConfirmDeleteDialog
+import com.example.home.component.HomeMoreVertDropDownMenu
 import com.example.model.Category
 import com.example.model.Todo
 
@@ -60,13 +64,20 @@ fun HomeScreen(
         }
     }
 
+
+
     HomeContent(
         uiState.value,
         snackBarHostState,
         onSelectCategory = viewModel::changeCategory,
         onClickAddCategory = viewModel::navigateToAddCategory,
         onClickAddTodo = viewModel::navigateToAddTodo,
-        onClickTodoComplete = viewModel::complete
+        onClickTodoComplete = viewModel::complete,
+        onConfirmAlertDialog = viewModel::deleteCategory,
+        onDismissAlertDialog = viewModel::dismissConfirmDeleteDialog,
+        onDismissDropDownMenu = viewModel::dismissDropDownMenu,
+        onClickDeleteCategory = viewModel::showConfirmDeleteDialog,
+        onClickMoreButton = viewModel::expandDropDownMenu
     )
 }
 
@@ -79,10 +90,35 @@ private fun HomeContent(
     onClickAddCategory: () -> Unit,
     onClickTodoComplete: (Todo) -> Unit,
     onClickAddTodo: () -> Unit,
+    onConfirmAlertDialog: () -> Unit,
+    onDismissAlertDialog: () -> Unit,
+    onDismissDropDownMenu: () -> Unit,
+    onClickDeleteCategory: () -> Unit,
+    onClickMoreButton: () -> Unit,
 ) {
+    if (uiState.showConfirmDeleteDialog) {
+        ConfirmDeleteDialog(
+            title = "カテゴリを削除",
+            text = "カテゴリを削除すると、カテゴリに属するタスクも削除され、復元することはできません",
+            onConfirm = onConfirmAlertDialog,
+            onDismiss = onDismissAlertDialog
+        )
+    }
+
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Home") })
+            TopAppBar(
+                title = { Text("Home") },
+                actions = {
+                    HomeMoreVertDropDownMenu(
+                        expanded = uiState.expandedDropDownMenu,
+                        onDismissRequest = onDismissDropDownMenu,
+                        onClickDeleteCategory = onClickDeleteCategory,
+                        onClickButton = onClickMoreButton
+                    )
+                    Spacer(Modifier.width(8.dp))
+                }
+            )
         },
         snackbarHost = { SnackbarHost(snackBarHostState) },
         floatingActionButton = {
