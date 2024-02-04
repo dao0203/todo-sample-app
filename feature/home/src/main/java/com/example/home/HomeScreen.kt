@@ -23,9 +23,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -44,6 +44,7 @@ import com.example.home.component.HomeMoreVertDropDownMenu
 import com.example.home.component.UncompletedTodoItem
 import com.example.model.Category
 import com.example.model.Todo
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun HomeScreen(
@@ -56,25 +57,18 @@ fun HomeScreen(
     val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
-        viewModel.uiEvent.collect {
+        viewModel.uiEvent.collectLatest {
             when (it) {
                 is HomeUiEvent.NavigateToAddCategory -> onClickAddCategory()
                 is HomeUiEvent.NavigateToAddTodo -> onClickAddTodo()
                 is HomeUiEvent.NavigateToDetail -> onClickTodo(it.todoId)
-                is HomeUiEvent.CompletionChanged -> {
-                    val result = snackBarHostState.showSnackbar(
-                        message = it.todo.title + " を完了しました",
-                        actionLabel = "元に戻す"
-                    )
-
-                    if (result == SnackbarResult.ActionPerformed)
-                        viewModel.undoComplete(it.todo)
-                }
+                is HomeUiEvent.ShowSnackbar -> snackBarHostState.showSnackbar(
+                    message = it.message,
+                    duration = SnackbarDuration.Short
+                )
             }
         }
     }
-
-
 
     HomeContent(
         uiState.value,

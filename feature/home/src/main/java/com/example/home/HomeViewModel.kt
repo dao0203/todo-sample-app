@@ -57,14 +57,12 @@ class HomeViewModel @Inject constructor(
         )
 
     private val _uiEvent = MutableSharedFlow<HomeUiEvent>()
-
     val uiEvent = _uiEvent.asSharedFlow()
 
     //todo
     fun complete(todo: Todo) {
         viewModelScope.launch {
             todoRepository.complete(todo.id)
-            _uiEvent.emit(HomeUiEvent.CompletionChanged(todo))
         }
     }
 

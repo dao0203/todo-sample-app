@@ -21,7 +21,9 @@ class TodoRepositoryImpl @Inject constructor(
         todoEntityDao.getCompletedByCategory(categoryId).map { it.toTodos() }
 
     override fun observeById(todoId: Int): Flow<Todo> =
-        todoEntityDao.getById(todoId).mapNotNull { it.toTodo() }
+        todoEntityDao.getById(todoId).mapNotNull {
+            it?.toTodo()
+        }
 
     override suspend fun create(todo: Todo) {
         withContext(Dispatchers.IO) {
