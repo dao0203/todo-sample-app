@@ -1,7 +1,10 @@
 package com.example.home
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,8 +13,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -32,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.home.component.CompletedTodoItem
 import com.example.home.component.ConfirmDeleteDialog
 import com.example.home.component.HomeMoreVertDropDownMenu
 import com.example.home.component.UncompletedTodoItem
@@ -78,7 +85,8 @@ fun HomeScreen(
         onDismissAlertDialog = viewModel::dismissConfirmDeleteDialog,
         onDismissDropDownMenu = viewModel::dismissDropDownMenu,
         onClickDeleteCategory = viewModel::showConfirmDeleteDialog,
-        onClickMoreButton = viewModel::expandDropDownMenu
+        onClickMoreButton = viewModel::expandDropDownMenu,
+        onClickDisplayableCompletedTodos = viewModel::toggleShowCompletedTodos
     )
 }
 
@@ -96,6 +104,7 @@ private fun HomeContent(
     onDismissDropDownMenu: () -> Unit,
     onClickDeleteCategory: () -> Unit,
     onClickMoreButton: () -> Unit,
+    onClickDisplayableCompletedTodos: () -> Unit
 ) {
     if (uiState.showConfirmDeleteDialog) {
         ConfirmDeleteDialog(
@@ -147,6 +156,7 @@ private fun HomeContent(
                     onSelectCategory = onSelectCategory,
                     onClickAddCategory = onClickAddCategory,
                     onClickTodoComplete = onClickTodoComplete,
+                    onClickDisplayableCompletedTodos = onClickDisplayableCompletedTodos
                 )
             }
         }
@@ -188,6 +198,7 @@ private fun HomeContentSuccess(
     onSelectCategory: (Int) -> Unit,
     onClickAddCategory: () -> Unit,
     onClickTodoComplete: (Todo) -> Unit,
+    onClickDisplayableCompletedTodos: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
@@ -198,14 +209,55 @@ private fun HomeContentSuccess(
             onClickAddCategory = onClickAddCategory
         )
         LazyColumn {
-            items(uiState.todos.size) { index ->
+            items(uiState.uncompletedTodos.size) { index ->
                 UncompletedTodoItem(
-                    todo = uiState.todos[index],
-                    onClickTodoComplete = onClickTodoComplete,
+                    todo = uiState.uncompletedTodos[index],
+                    onClick = {},
+                    onClickCheckbox = onClickTodoComplete,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 )
+            }
+            item {
+                HorizontalDivider()
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onClickDisplayableCompletedTodos() }
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        "完了したタスク",
+                        modifier = Modifier.weight(1f)
+                    )
+                    if (uiState.showCompletedTodos)
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowUp,
+                            contentDescription = null
+                        )
+                    else
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = null
+                        )
+                    Spacer(Modifier.width(12.dp))
+                }
+            }
+            if (uiState.showCompletedTodos) {
+                items(uiState.completedTodos.size) { index ->
+                    CompletedTodoItem(
+                        todo = uiState.completedTodos[index],
+                        onClick = {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                }
             }
         }
     }

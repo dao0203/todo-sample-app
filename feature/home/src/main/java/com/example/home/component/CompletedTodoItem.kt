@@ -9,13 +9,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.model.Todo
 
@@ -38,14 +39,17 @@ fun CompletedTodoItem(
         Text(
             text = todo.title,
             maxLines = 1,
-            style = TextStyle(
+            style = MaterialTheme.typography.titleLarge.copy(
                 textDecoration = TextDecoration.LineThrough
             ),
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(Modifier.width(8.dp))
         Icon(
             imageVector = Icons.Default.Check,
             contentDescription = null,
         )
+        Spacer(Modifier.width(12.dp))
     }
 }
