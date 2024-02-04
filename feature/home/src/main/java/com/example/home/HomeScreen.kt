@@ -34,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.home.component.ConfirmDeleteDialog
 import com.example.home.component.HomeMoreVertDropDownMenu
+import com.example.home.component.UncompletedTodoItem
 import com.example.model.Category
 import com.example.model.Todo
 
@@ -198,7 +199,7 @@ private fun HomeContentSuccess(
         )
         LazyColumn {
             items(uiState.todos.size) { index ->
-                TodoItem(
+                UncompletedTodoItem(
                     todo = uiState.todos[index],
                     onClickTodoComplete = onClickTodoComplete,
                     modifier = Modifier

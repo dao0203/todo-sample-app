@@ -1,4 +1,4 @@
-package com.example.home
+package com.example.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.model.Todo
 
 @Composable
-fun TodoItem(
+fun UncompletedTodoItem(
     todo: Todo,
     onClickTodoComplete: (Todo) -> Unit,
     modifier: Modifier = Modifier
