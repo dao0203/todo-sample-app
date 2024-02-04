@@ -8,12 +8,16 @@ import com.example.repository.CategoryRepository
 import com.example.repository.TodoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private data class HomeViewModelState(
@@ -32,7 +36,7 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<HomeUiState> = vmState.flatMapLatest { vmState ->
         combine(
             categoryRepository.getAll(),
-            todoRepository.getByCategory(vmState.selectedCategoryId)
+            todoRepository.observeUnCompletedByCategory(vmState.selectedCategoryId)
         ) { category, todos ->
             convertToUiState(category, todos, vmState)
         }
@@ -43,8 +47,33 @@ class HomeViewModel @Inject constructor(
             HomeUiState.Loading()
         )
 
+    private val _uiEvent = MutableSharedFlow<HomeUiEvent>()
+
+    val uiEvent = _uiEvent.asSharedFlow()
+
+    fun complete(todo: Todo) {
+        viewModelScope.launch {
+            todoRepository.complete(todo)
+            _uiEvent.emit(HomeUiEvent.CompletionChanged(todo))
+        }
+    }
+
+    fun undoComplete(todo: Todo) {
+        viewModelScope.launch {
+            todoRepository.undoComplete(todo)
+        }
+    }
+
     fun changeCategory(categoryId: Int) {
-        vmState.value = vmState.value.copy(selectedCategoryId = categoryId)
+        vmState.update { it.copy(selectedCategoryId = categoryId) }
+    }
+
+    fun navigateToAddCategory() {
+        viewModelScope.launch { _uiEvent.emit(HomeUiEvent.NavigateToAddCategory) }
+    }
+
+    fun navigateToAddTodo() {
+        viewModelScope.launch { _uiEvent.emit(HomeUiEvent.NavigateToAddTodo) }
     }
 
     private fun convertToUiState(
