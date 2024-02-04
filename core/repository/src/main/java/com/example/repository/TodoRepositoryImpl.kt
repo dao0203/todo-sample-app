@@ -28,9 +28,9 @@ class TodoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun complete(todo: Todo) {
+    override suspend fun complete(todoId: Int) {
         withContext(Dispatchers.IO) {
-            todoEntityDao.complete(todo.id)
+            todoEntityDao.complete(todoId)
         }
     }
 

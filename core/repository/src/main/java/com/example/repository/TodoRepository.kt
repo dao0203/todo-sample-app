@@ -9,6 +9,6 @@ interface TodoRepository {
 
     fun observeById(todoId: Int): Flow<Todo>
     suspend fun create(todo: Todo)
-    suspend fun complete(todo: Todo)
+    suspend fun complete(todoId: Int)
     suspend fun undoComplete(todo: Todo)
 }

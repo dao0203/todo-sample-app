@@ -63,7 +63,7 @@ class HomeViewModel @Inject constructor(
     //todo
     fun complete(todo: Todo) {
         viewModelScope.launch {
-            todoRepository.complete(todo)
+            todoRepository.complete(todo.id)
             _uiEvent.emit(HomeUiEvent.CompletionChanged(todo))
         }
     }
