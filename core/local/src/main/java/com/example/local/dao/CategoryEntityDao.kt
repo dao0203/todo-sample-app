@@ -17,6 +17,6 @@ interface CategoryEntityDao {
     @Query("SELECT * FROM categories")
     fun getCategories(): Flow<List<CategoryEntity>>
 
-    @Delete
-    fun delete(categoryEntity: CategoryEntity)
+    @Query("DELETE FROM categories WHERE id = :categoryId")
+    fun delete(categoryId: Int)
 }
