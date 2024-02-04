@@ -71,10 +71,11 @@ class AddTodoViewModel @Inject constructor(
         vmState.update {
             it.copy(
                 selectedCategory = category,
-                enabledCompleteButton = it.defineEnabledCompleteButton(),
                 categoryDropDownExpanded = false
             )
         }
+
+        vmState.update { it.copy(enabledCompleteButton = it.defineEnabledCompleteButton()) }
     }
 
     fun addTodo() {
