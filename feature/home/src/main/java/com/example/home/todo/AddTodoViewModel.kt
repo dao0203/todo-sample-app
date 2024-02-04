@@ -25,7 +25,7 @@ private data class AddTodoViewModelState(
     val isLoading: Boolean = false,
 ) {
     fun defineEnabledCompleteButton() =
-        title.isNotBlank() && description.isNotBlank() && selectedCategory != null
+        title.isNotBlank() && selectedCategory != null
 }
 
 @HiltViewModel
