@@ -67,6 +67,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun showConfirmDeleteDialog() {
+        if (vmState.value.selectedCategoryId == 1) return
         vmState.update {
             it.copy(
                 showConfirmDeleteDialog = true,
