@@ -38,9 +38,15 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<HomeUiState> = vmState.flatMapLatest { vmState ->
         combine(
             categoryRepository.getAll(),
-            todoRepository.observeUncompletedByCategory(vmState.selectedCategoryId)
-        ) { category, todos ->
-            convertToUiState(category, todos, vmState)
+            todoRepository.observeUncompletedByCategory(vmState.selectedCategoryId),
+            todoRepository.observeCompletedByCategory(vmState.selectedCategoryId)
+        ) { category, uncompletedTodos, completedTodos ->
+            convertToUiState(
+                category,
+                uncompletedTodos,
+                completedTodos,
+                vmState
+            )
         }
     }
         .stateIn(
@@ -112,7 +118,8 @@ class HomeViewModel @Inject constructor(
 
     private fun convertToUiState(
         category: List<Category>,
-        todos: List<Todo>,
+        uncompletedTodos: List<Todo>,
+        completedTodos: List<Todo>,
         vmState: HomeViewModelState
     ) = when {
         category.isEmpty() -> HomeUiState.Error(
@@ -122,7 +129,8 @@ class HomeViewModel @Inject constructor(
         )
 
         else -> HomeUiState.Success(
-            todos = todos,
+            uncompletedTodos = uncompletedTodos,
+            completedTodos = completedTodos,
             categories = category,
             selectedCategoryId = vmState.selectedCategoryId,
             showConfirmDeleteDialog = vmState.showConfirmDeleteDialog,

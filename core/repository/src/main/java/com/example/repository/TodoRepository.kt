@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TodoRepository {
     fun observeUncompletedByCategory(categoryId: Int): Flow<List<Todo>>
-
+    fun observeCompletedByCategory(categoryId: Int): Flow<List<Todo>>
     suspend fun create(todo: Todo)
     suspend fun complete(todo: Todo)
     suspend fun undoComplete(todo: Todo)
