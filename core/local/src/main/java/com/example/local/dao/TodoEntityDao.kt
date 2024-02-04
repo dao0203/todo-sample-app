@@ -13,6 +13,9 @@ interface TodoEntityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(todoEntity: TodoEntity)
 
+    @Query("DELETE FROM todos WHERE id = :id")
+    fun delete(id: Int)
+
     @Query("SELECT * FROM todos")
     fun getAll(): Flow<List<TodoEntity>>
 

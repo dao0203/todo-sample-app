@@ -28,15 +28,21 @@ class TodoRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun delete(todoId: Int) {
+        withContext(Dispatchers.IO) {
+            todoEntityDao.delete(todoId)
+        }
+    }
+
     override suspend fun complete(todoId: Int) {
         withContext(Dispatchers.IO) {
             todoEntityDao.complete(todoId)
         }
     }
 
-    override suspend fun undoComplete(todo: Todo) {
+    override suspend fun undoComplete(todoId: Int) {
         withContext(Dispatchers.IO) {
-            todoEntityDao.undoComplete(todo.id)
+            todoEntityDao.undoComplete(todoId)
         }
     }
 }
