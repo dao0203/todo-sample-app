@@ -13,7 +13,7 @@ import javax.inject.Inject
 class TodoRepositoryImpl @Inject constructor(
     private val todoEntityDao: TodoEntityDao
 ) : TodoRepository {
-    override fun observeUnCompletedByCategory(categoryId: Int): Flow<List<Todo>> =
+    override fun observeUncompletedByCategory(categoryId: Int): Flow<List<Todo>> =
         todoEntityDao.getUnCompletedByCategory(categoryId).map { it.toTodos() }
 
     override suspend fun create(todo: Todo) {

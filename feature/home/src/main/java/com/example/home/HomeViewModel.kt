@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<HomeUiState> = vmState.flatMapLatest { vmState ->
         combine(
             categoryRepository.getAll(),
-            todoRepository.observeUnCompletedByCategory(vmState.selectedCategoryId)
+            todoRepository.observeUncompletedByCategory(vmState.selectedCategoryId)
         ) { category, todos ->
             convertToUiState(category, todos, vmState)
         }
