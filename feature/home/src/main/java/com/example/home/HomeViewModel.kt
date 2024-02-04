@@ -70,7 +70,7 @@ class HomeViewModel @Inject constructor(
 
     fun undoComplete(todo: Todo) {
         viewModelScope.launch {
-            todoRepository.undoComplete(todo)
+            todoRepository.undoComplete(todo.id)
         }
     }
 
