@@ -9,6 +9,7 @@ sealed interface HomeUiState {
     val categories: List<Category>
     val isLoading: Boolean
     val showConfirmDeleteDialog: Boolean
+    val showCompletedTodos: Boolean
     val expandedDropDownMenu: Boolean
 
     data class Loading(
@@ -17,6 +18,7 @@ sealed interface HomeUiState {
         override val categories: List<Category> = emptyList(),
         override val isLoading: Boolean = true,
         override val showConfirmDeleteDialog: Boolean = false,
+        override val showCompletedTodos: Boolean = false,
         override val expandedDropDownMenu: Boolean = false
     ) : HomeUiState
 
@@ -27,6 +29,7 @@ sealed interface HomeUiState {
         val selectedCategoryId: Int,
         override val isLoading: Boolean = false,
         override val showConfirmDeleteDialog: Boolean = false,
+        override val showCompletedTodos: Boolean = false,
         override val expandedDropDownMenu: Boolean = false
     ) : HomeUiState
 
@@ -37,6 +40,7 @@ sealed interface HomeUiState {
         override val completedTodos: List<Todo> = emptyList(),
         override val isLoading: Boolean = false,
         override val showConfirmDeleteDialog: Boolean = false,
+        override val showCompletedTodos: Boolean = false,
         override val expandedDropDownMenu: Boolean = false
     ) : HomeUiState
 }

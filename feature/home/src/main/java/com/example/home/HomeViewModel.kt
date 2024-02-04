@@ -23,6 +23,7 @@ import javax.inject.Inject
 private data class HomeViewModelState(
     val selectedCategoryId: Int = 1,
     val showConfirmDeleteDialog: Boolean = false,
+    val showCompletedTodos: Boolean = false,
     val expandedDropDownMenu: Boolean = false,
 )
 
@@ -59,6 +60,7 @@ class HomeViewModel @Inject constructor(
 
     val uiEvent = _uiEvent.asSharedFlow()
 
+    //todo
     fun complete(todo: Todo) {
         viewModelScope.launch {
             todoRepository.complete(todo)
@@ -72,6 +74,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun toggleShowCompletedTodos() {
+        vmState.update { it.copy(showCompletedTodos = !it.showCompletedTodos) }
+    }
+
+    //dialog
     fun showConfirmDeleteDialog() {
         if (vmState.value.selectedCategoryId == 1) return
         vmState.update {
@@ -86,15 +93,7 @@ class HomeViewModel @Inject constructor(
         vmState.update { it.copy(showConfirmDeleteDialog = false) }
     }
 
-    fun deleteCategory() {
-        viewModelScope.launch {
-            val id = vmState.value.selectedCategoryId
-            vmState.update { it.copy(selectedCategoryId = 1) }
-            categoryRepository.delete(id)
-            vmState.update { it.copy(showConfirmDeleteDialog = false) }
-        }
-    }
-
+    //dropdown
     fun expandDropDownMenu() {
         vmState.update { it.copy(expandedDropDownMenu = true) }
     }
@@ -103,8 +102,18 @@ class HomeViewModel @Inject constructor(
         vmState.update { it.copy(expandedDropDownMenu = false) }
     }
 
+    //category
     fun changeCategory(categoryId: Int) {
         vmState.update { it.copy(selectedCategoryId = categoryId) }
+    }
+
+    fun deleteCategory() {
+        viewModelScope.launch {
+            val id = vmState.value.selectedCategoryId
+            vmState.update { it.copy(selectedCategoryId = 1) }
+            categoryRepository.delete(id)
+            vmState.update { it.copy(showConfirmDeleteDialog = false) }
+        }
     }
 
     //navigation
@@ -134,6 +143,7 @@ class HomeViewModel @Inject constructor(
             categories = category,
             selectedCategoryId = vmState.selectedCategoryId,
             showConfirmDeleteDialog = vmState.showConfirmDeleteDialog,
+            showCompletedTodos = vmState.showCompletedTodos,
             expandedDropDownMenu = vmState.expandedDropDownMenu
         )
     }
