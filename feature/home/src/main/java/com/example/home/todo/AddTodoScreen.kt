@@ -37,7 +37,7 @@ fun AddTodoScreen(
     LaunchedEffect(Unit) {
         viewModel.uiEvent.collect {
             when (it) {
-                is AddTodoUiEvent.TransitionBack -> onClickBack()
+                is AddTodoUiEvent.NavigateToBack -> onClickBack()
             }
         }
     }

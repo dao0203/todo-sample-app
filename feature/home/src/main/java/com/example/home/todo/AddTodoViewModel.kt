@@ -91,13 +91,13 @@ class AddTodoViewModel @Inject constructor(
             )
             todoRepository.create(todo)
             vmState.update { it.copy(isLoading = false) }
-            _uiEvent.emit(AddTodoUiEvent.TransitionBack)
+            _uiEvent.emit(AddTodoUiEvent.NavigateToBack)
         }
     }
 
     fun back() {
         viewModelScope.launch {
-            _uiEvent.emit(AddTodoUiEvent.TransitionBack)
+            _uiEvent.emit(AddTodoUiEvent.NavigateToBack)
         }
     }
 
