@@ -23,9 +23,9 @@ class CategoryRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun delete(category: Category) {
+    override suspend fun delete(categoryId: Int) {
         withContext(Dispatchers.IO) {
-            categoryEntityDao.delete(CategoryEntity.fromCategory(category))
+            categoryEntityDao.delete(categoryId)
         }
     }
 }
