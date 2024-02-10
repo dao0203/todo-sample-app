@@ -32,7 +32,7 @@ class HomeScreenTest {
         val uiState = HomeUiState.Success(
             uncompletedTodos = emptyList(),
             completedTodos = emptyList(),
-            categories = listOf(myTaskCategory),
+            categories = listOf(myTaskCategory, myTaskCategory.copy(id = 2)),
             selectedCategoryId = 1
         )
         val snackBarHostState = SnackbarHostState()
