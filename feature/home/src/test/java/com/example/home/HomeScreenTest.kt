@@ -7,10 +7,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.testing.model.myTaskCategory
-import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
+import com.example.testing.roborazzi.DefaultRoborazziRule
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
-import com.github.takahirom.roborazzi.roborazziRecordFilePathStrategy
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +24,9 @@ class HomeScreenTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    @OptIn(ExperimentalRoborazziApi::class)
+    @get:Rule
+    val roborazziRule = DefaultRoborazziRule
+
     @Test
     fun homeContent_success() {
         val uiState = HomeUiState.Success(
@@ -54,8 +55,6 @@ class HomeScreenTest {
                 )
             }
         }
-        composeTestRule.onRoot().captureRoboImage(
-            filePath = "${roborazziRecordFilePathStrategy()}/homeContent_success.png",
-        )
+        composeTestRule.onRoot().captureRoboImage()
     }
 }
