@@ -31,5 +31,6 @@ dependencies {
     api(libs.roborazzi.compose)
     api(libs.roborazzi.junit.rule)
     api(libs.ui.test.junit4)
+    api(projects.core.model)
     debugApi(libs.ui.test.manifest)
 }
