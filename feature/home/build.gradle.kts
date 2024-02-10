@@ -31,6 +31,9 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
+    testImplementation(libs.roborazzi.junit.rule)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
