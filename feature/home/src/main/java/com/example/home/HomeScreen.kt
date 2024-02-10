@@ -89,7 +89,7 @@ fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeContent(
+internal fun HomeContent(
     uiState: HomeUiState,
     snackBarHostState: SnackbarHostState,
     onSelectCategory: (Int) -> Unit,
