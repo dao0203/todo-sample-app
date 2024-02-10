@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
+    testImplementation(libs.robolectric)
     testImplementation(projects.core.testing)
     androidTestImplementation(projects.core.testing)
 }
