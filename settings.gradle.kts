@@ -21,5 +21,6 @@ include(":app")
 include(":core:repository")
 include(":core:local")
 include(":core:model")
+include(":core:testing")
 
 include(":feature:home")

@@ -1,13 +1,11 @@
 plugins {
     alias(libs.plugins.todo.android.library)
     alias(libs.plugins.todo.android.library.compose)
-    alias(libs.plugins.todo.android.feature)
     alias(libs.plugins.todo.android.hilt)
-    alias(libs.plugins.roborazzi)
 }
 
 android {
-    namespace = "com.example.home"
+    namespace = "com.example.testing"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -26,11 +24,12 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-
-    testImplementation(projects.core.testing)
-    androidTestImplementation(projects.core.testing)
+    api(libs.junit)
+    api(libs.activity.compose)
+    api(libs.androidx.test.ext.junit)
+    api(libs.roborazzi)
+    api(libs.roborazzi.compose)
+    api(libs.roborazzi.junit.rule)
+    api(libs.ui.test.junit4)
+    debugApi(libs.ui.test.manifest)
 }
