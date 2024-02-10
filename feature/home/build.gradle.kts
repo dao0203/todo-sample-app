@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.todo"
+    namespace = "com.example.home"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
