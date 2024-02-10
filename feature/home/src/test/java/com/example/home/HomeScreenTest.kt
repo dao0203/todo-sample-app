@@ -7,7 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.testing.model.myTaskCategory
-import com.example.testing.roborazzi.DefaultRoborazziRule
+import com.example.testing.roborazzi.FeatureRoborazziRule
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
@@ -25,7 +25,7 @@ class HomeScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @get:Rule
-    val roborazziRule = DefaultRoborazziRule
+    val roborazziRule = FeatureRoborazziRule
 
     @Test
     fun homeContent_success() {
