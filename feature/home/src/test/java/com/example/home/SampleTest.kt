@@ -24,6 +24,6 @@ class SampleTest {
     @Test
     fun sampleTest() {
         composeTestRule.setContent { MaterialTheme { Text("Hello, World!") } }
-        composeTestRule.onRoot().captureRoboImage("src/test/screenshots/Sample/sample_test.png")
+        composeTestRule.onRoot().captureRoboImage("src/test/screenshots/sample/sample_test.png")
     }
 }
