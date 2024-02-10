@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.todo.android.library.compose)
     alias(libs.plugins.todo.android.feature)
     alias(libs.plugins.todo.android.hilt)
+    alias(libs.plugins.roborazzi)
 }
 
 android {
