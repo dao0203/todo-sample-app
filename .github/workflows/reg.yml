@@ -61,7 +61,7 @@ jobs:
           comment-author: github-actions[bot]
           body-includes: reg-suit report  # A string to search for in the body of comments.
 
-      - name: update comment
+      - name: upsert comment
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
