@@ -49,6 +49,7 @@ jobs:
           yarn reg-suit sync-expected && reg-suit compare && reg-suit publish -n
 
       - name: upload test results to github page
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .reg/
