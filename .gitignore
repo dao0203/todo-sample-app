@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-.reg
+.reg/*
+!.reg/expected
