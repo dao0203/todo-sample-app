@@ -50,7 +50,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: actual_images/
+          publish_dir: .reg/
           destination_dir: ${{ github.head_ref  }}
 
       - name: find comment
@@ -64,6 +64,7 @@ jobs:
       - name: upsert comment
         uses: peter-evans/create-or-update-comment@v4
         with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             reg-suit report
