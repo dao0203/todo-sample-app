@@ -44,7 +44,7 @@ jobs:
 
       - name: run reg-suit
         run: |
-          yarn run reg-suit sync-expected && reg-suit compare && reg-suit publish -n
+          yarn run reg-suit sync-expected && yarn run reg-suit compare && yarn run reg-suit publish -n
 
       - name: upload test results to github page
         uses: peaceiris/actions-gh-pages@v3
