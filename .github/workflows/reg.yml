@@ -62,10 +62,10 @@ jobs:
           body-includes: reg-suit report  # A string to search for in the body of comments.
 
       - name: update comment
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             reg-suit report
-            https://dao0203.github.io/todo-sample-app/${{ github.head_ref }}/
+            https://dao0203.github.io/todo-sample-app/${{ github.head_ref }}
           edit-mode: replace
