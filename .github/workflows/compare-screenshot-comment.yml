@@ -2,7 +2,8 @@ name: Screenshot compare comment
 
 on:
   workflow_run:
-    workflows: [ "CompareScreenshot" ]
+    workflows:
+      - CompareScreenshot
     types: [ completed ]
 
 concurrency:
