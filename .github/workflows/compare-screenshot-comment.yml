@@ -2,10 +2,8 @@ name: Screenshot compare comment
 
 on:
   workflow_run:
-    workflows:
-      - CompareScreenshot
-    types:
-      - completed
+    workflows: [ "CompareScreenshot" ]
+    types: [ completed ]
 
 jobs:
   Comment-CompareScreenshot:
