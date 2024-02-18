@@ -102,7 +102,7 @@ jobs:
           echo "files=$files"
           delimiter="$(openssl rand -hex 8)"
           {
-            echo "report<<$delimiter"
+            echo "reports<<${delimiter}"
           
             echo "Snapshot diff report"
             echo "| File name | Image |"
