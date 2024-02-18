@@ -98,8 +98,6 @@ jobs:
         shell: bash
         run: |
           files=$(find . -type f -name "*_compare.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
-          ## filesの中身を出力
-          echo "files=$files"
           delimiter="$(openssl rand -hex 8)"
           {
             echo "reports<<${delimiter}"
