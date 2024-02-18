@@ -98,6 +98,8 @@ jobs:
         shell: bash
         run: |
           files=$(find . -type f -name "*_compare.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
+          ## filesの中身を出力
+          echo "files=$files" >> "$GITHUB_OUTPUT"
           delimiter="$(openssl rand -hex 8)"
           {
             echo "report<<$delimiter"
@@ -108,7 +110,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
           
           for file in $files; do
-            fileName=$(basename $file | sed -r 's/(.{20})/\1<br>/g')
+            fileName=$(basename "$file" | sed -r 's/(.{20})/\1<br>/g')
             echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$BRANCH_NAME/$file) | ![](https://github.com/${{ github.repository }}/blob/$BRANCH_NAME/$file?raw=true) |" >> "$GITHUB_OUTPUT"
           done
           echo "$delimiter" >> "$GITHUB_OUTPUT"
