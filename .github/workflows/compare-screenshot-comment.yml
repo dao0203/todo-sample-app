@@ -52,8 +52,8 @@ jobs:
 
       - uses: dawidd6/action-download-artifact@v3
         with:
-          name: screenshot-diff
-          path: screenshot-diff
+          name: screenshots-diff
+          path: screenshots-diff
           run_id: ${{ github.event.workflow_run.id }}
 
       - id: check-if-there-are-valid-files
