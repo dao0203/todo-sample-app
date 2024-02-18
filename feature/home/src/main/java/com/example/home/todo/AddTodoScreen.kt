@@ -55,7 +55,7 @@ fun AddTodoScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AddTodoContent(
+internal fun AddTodoContent(
     uiState: AddTodoUiState,
     onChangeTitle: (String) -> Unit,
     onChangeDescription: (String) -> Unit,

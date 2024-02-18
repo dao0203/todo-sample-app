@@ -57,7 +57,7 @@ fun DetailTodoScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DetailTodoContent(
+internal fun DetailTodoContent(
     uiState: DetailTodoUiState,
     onClickBack: () -> Unit,
     onClickDropDownMenu: () -> Unit,
@@ -123,7 +123,7 @@ private fun DetailTodoContent(
 }
 
 @Composable
-private fun DetailTodoContentLoading(
+internal fun DetailTodoContentLoading(
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -134,7 +134,7 @@ private fun DetailTodoContentLoading(
 }
 
 @Composable
-private fun DetailTodoContentSuccess(
+internal fun DetailTodoContentSuccess(
     uiState: DetailTodoUiState.Success,
     modifier: Modifier = Modifier
 ) {
