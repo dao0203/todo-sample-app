@@ -98,11 +98,9 @@ jobs:
         shell: bash
         run: |
           files=$(find . -type f -name "*_compare.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
-          ## filesの中身を出力
-          echo "files=$files" >> "$GITHUB_OUTPUT"
           delimiter="$(openssl rand -hex 8)"
           {
-            echo "report<<$delimiter"
+            echo "reports<<${delimiter}"
           
             echo "Snapshot diff report"
             echo "| File name | Image |"
