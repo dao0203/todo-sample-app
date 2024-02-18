@@ -98,7 +98,7 @@ jobs:
         shell: bash
         run: |
           files=$(find . -type f -name "*_compare.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
-          delimiter="${openssl rand -hex 8}"
+          delimiter="$(openssl rand -hex 8)"
           {
             echo "report<<$delimiter"
           
