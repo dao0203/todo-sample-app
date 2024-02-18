@@ -2,12 +2,14 @@ package com.example.home.todo
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -141,8 +143,22 @@ internal fun DetailTodoContentSuccess(
     Column(
         modifier = modifier.padding(16.dp),
     ) {
-        Text(text = uiState.todo.title)
+        Row {
+            Icon(
+                imageVector = Icons.Filled.Info,
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = uiState.todo.title)
+        }
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = uiState.todo.description)
+        Row {
+            Icon(
+                imageVector = Icons.Filled.Info,
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = uiState.todo.description)
+        }
     }
 }
