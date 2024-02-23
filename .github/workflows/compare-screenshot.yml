@@ -49,7 +49,6 @@ jobs:
           retention-days: 30
 
       - name: Save PR number
-        if: github.event_name == 'pull_request'
         run: |
           mkdir -p ./pr
             echo "${{ github.event.number }}" > ./pr/NR

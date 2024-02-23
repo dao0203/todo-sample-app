@@ -30,7 +30,6 @@ jobs:
           gradle-version: wrapper
 
       - name: record screenshot
-        id: record-screenshot
         run: |
           ./gradlew recordRoborazziDebug --stacktrace --rerun-tasks
 
