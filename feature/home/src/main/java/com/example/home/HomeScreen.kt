@@ -118,6 +118,7 @@ internal fun HomeContent(
             TopAppBar(
                 title = { Text("ホーム") },
                 actions = {
+                    Spacer(modifier = Modifier.width(8.dp))
                     HomeMoreVertDropDownMenu(
                         expanded = uiState.expandedDropDownMenu,
                         onDismissRequest = onDismissDropDownMenu,
