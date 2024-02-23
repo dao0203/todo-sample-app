@@ -38,5 +38,5 @@ jobs:
         with:
           name: screenshots
           path: |
-            actual-images/
+            actual_images/
           retention-days: 30
