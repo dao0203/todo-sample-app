@@ -38,5 +38,5 @@ jobs:
         with:
           name: screenshots
           path: |
-            **/build/outputs/roborazzi/
+            actual_images/
           retention-days: 30
