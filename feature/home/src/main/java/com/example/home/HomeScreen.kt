@@ -208,7 +208,7 @@ private fun HomeContentSuccess(
             onSelectCategory = onSelectCategory,
             onClickAddCategory = onClickAddCategory
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(6.dp))
         LazyColumn {
             items(uiState.uncompletedTodos.size) { index ->
                 UncompletedTodoItem(
