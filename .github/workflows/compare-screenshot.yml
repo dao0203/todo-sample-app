@@ -1,9 +1,6 @@
 name: CompareScreenshot
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 jobs:
@@ -30,6 +27,14 @@ jobs:
         with:
           gradle-version: wrapper
 
+      - uses: actions/download-artifact@v2
+        continue-on-error: true
+        with:
+          name: screenshots
+          workflow: StoreScreenshot
+          ## mainブランチのartifactを取得
+          branch: main
+
       - name: compare screenshot test
         id: compare-screenshot-test
         run: |
@@ -43,14 +48,6 @@ jobs:
             **/build/outputs/roborazzi/
           retention-days: 30
 
-      - uses: actions/upload-artifact@v2
-        if: ${{ always() }}
-        with:
-          name: screenshots-diff-reports
-          path: |
-            **/build/reports
-          retention-days: 30
-
       - name: Save PR number
         if: github.event_name == 'pull_request'
         run: |
@@ -61,4 +58,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pr
-          path: ./pr
+          path: pr/

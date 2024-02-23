@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-
-permissions: { }
 
 jobs:
   store-screenshot-test:
@@ -43,20 +40,4 @@ jobs:
           name: screenshots
           path: |
             **/build/outputs/roborazzi/
-          retention-days: 30
-
-      - uses: actions/upload-artifact@v2
-        if: ${{ always() }}
-        with:
-          name: screenshots-reports
-          path: |
-            **/build/reports
-          retention-days: 30
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ always() }}
-        with:
-          name: screenshot-test-results
-          path: |
-            **/build/test-results
           retention-days: 30
