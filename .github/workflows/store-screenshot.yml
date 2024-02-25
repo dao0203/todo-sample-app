@@ -38,6 +38,6 @@ jobs:
         with:
           name: screenshots
           path: |
-            actual_images/
+            ./actual_images/
           retention-days: 30
           overwrite: true
