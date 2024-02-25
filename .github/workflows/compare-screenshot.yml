@@ -40,7 +40,6 @@ jobs:
         run: |
           mkdir -p .reg/expected
           mv actual_images/* .reg/expected
-          ls .reg/expected ## 確認用
 
       ## 変更後のスクリーンショットを記録する
       - name: record screenshots
@@ -48,14 +47,11 @@ jobs:
         run: |
           ./gradlew recordRoborazziDebug --stacktrace
 
-      - run: |
-          ls actual_images/
-
       ## reg-suitを実行してスクリーンショットの差分を確認
       - name: run reg-suit
         id: compare-screenshot-test
         run: |
-          yarn run reg-suit
+          yarn run reg-suit run
 
       - name: deploy test results to github pages
         uses: peaceiris/actions-gh-pages@v3
