@@ -75,5 +75,5 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ## Screenshot Test Results
-            https://dao0203.github.io/${{ github.repository }}/${{ github.head_ref }}
+            https://dao0203.github.io/todo-sample-app/${{ github.head_ref }}
           edit-mode: replace
