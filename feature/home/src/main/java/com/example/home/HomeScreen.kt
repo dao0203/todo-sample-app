@@ -125,7 +125,7 @@ internal fun HomeContent(
                         onClickDeleteCategory = onClickDeleteCategory,
                         onClickButton = onClickMoreButton
                     )
-                    Spacer(Modifier.width(8.dp))
+                    Spacer(Modifier.width(4.dp))
                 }
             )
         },
