@@ -28,6 +28,10 @@ jobs:
         with:
           gradle-version: wrapper
 
+      - name: workaround for detached HEAD
+        run: |
+          git checkout ${GITHUB_HEAD_REF#refs/heads/} || git checkout -b ${GITHUB_HEAD_REF#refs/heads/} && git pull origin ${GITHUB_HEAD_REF#refs/heads/}
+
       - uses: dawidd6/action-download-artifact@v2
         continue-on-error: true
         with:
