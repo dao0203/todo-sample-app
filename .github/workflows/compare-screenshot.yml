@@ -50,7 +50,7 @@ jobs:
       - name: run reg-suit
         id: compare-screenshot-test
         run: |
-          reg-suit run
+          npx run reg-suit
 
       - name: deploy test results to github pages
         uses: peaceiris/actions-gh-pages@v3
