@@ -37,9 +37,8 @@ jobs:
       ## 先ほどダウンロードしたスクリーンショットを/.reg/expectedに移動
       - name: Move screenshots
         run: |
-          ls -R
           mkdir -p .reg/expected
-          mv actual_images/* .reg/expected
+          mv screenshots/* .reg/expected
 
       ## 変更後のスクリーンショットを記録する
       - name: record screenshots
