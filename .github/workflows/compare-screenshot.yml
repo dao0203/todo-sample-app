@@ -51,7 +51,7 @@ jobs:
       - name: run reg-suit
         id: compare-screenshot-test
         run: |
-          yarn run reg-suit run
+          yarn ci:reg-suit
 
       - name: deploy test results to github pages
         uses: peaceiris/actions-gh-pages@v3
