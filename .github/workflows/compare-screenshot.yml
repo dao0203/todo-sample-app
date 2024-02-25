@@ -40,6 +40,7 @@ jobs:
         run: |
           mkdir -p .reg/expected
           mv actual_images/* .reg/expected
+          ls .reg/expected
 
       ## 変更後のスクリーンショットを記録する
       - name: record screenshots
