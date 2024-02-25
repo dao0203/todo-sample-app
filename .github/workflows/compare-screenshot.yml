@@ -38,7 +38,7 @@ jobs:
       - name: Move screenshots
         run: |
           mkdir -p .reg/expected
-          mv screenshots/* .reg/expected
+          mv actual_images/* .reg/expected
 
       ## 変更後のスクリーンショットを記録する
       - name: record screenshots
