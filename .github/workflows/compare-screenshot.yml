@@ -34,26 +34,46 @@ jobs:
           workflow: store-screenshot.yml
           branch: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
 
-      - name: compare screenshot test
+      ## 先ほどダウンロードしたスクリーンショットを/.reg/expectedに移動
+      - name: Move screenshots
+        run: |
+          mkdir -p .reg/expected
+          mv actual_images/* .reg/expected
+
+      ## 変更後のスクリーンショットを記録する
+      - name: record screenshots
+        id: record-screenshot-test
+        run: |
+          ./gradlew recordRoborazziDebug --stacktrace
+
+      ## reg-suitを実行してスクリーンショットの差分を確認
+      - name: run reg-suit
         id: compare-screenshot-test
         run: |
-          ./gradlew compareRoborazziDebug --stacktrace
+          reg-suit run
 
-      - uses: actions/upload-artifact@v4
-        if: ${{ always() }}
+      - name: deploy test results to github pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: screenshots-diff
-          path: |
-            **/build/outputs/roborazzi/
-          retention-days: 30
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .reg
+          destination_dir: ${{ github.head_ref }}
 
-      - name: Save PR number
-        run: |
-          mkdir -p ./pr
-            echo "${{ github.event.number }}" > ./pr/NR
-
-      - name: upload PR number
-        uses: actions/upload-artifact@v4
+      - name: find comment
+        uses: peter-evans/find-comment@v3
+        id: fc
         with:
-          name: pr
-          path: pr/
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: github-actions[bot]
+          body-includes: '## Screenshot Test Results'
+
+      - name: upsert comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Screenshot Test Results
+            https://dao0203.github.io/${{ github.repository }}/${{ github.head_ref }}
+          edit-mode: replace
+            
