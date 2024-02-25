@@ -207,6 +207,7 @@ private fun HomeContentSuccess(
             onSelectCategory = onSelectCategory,
             onClickAddCategory = onClickAddCategory
         )
+
         LazyColumn {
             items(uiState.uncompletedTodos.size) { index ->
                 UncompletedTodoItem(
