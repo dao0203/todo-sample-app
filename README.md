@@ -62,3 +62,13 @@ It uses Gradle's ability to integrate and build multiple projects. This facilita
 
 - **Gradle**: Tool to automate project build and dependency management.
 
+### VRT Tools
+
+- reg-suit: Automates vrt by comparing screenshots before and after changes.
+- roborazzi: Allows you to take screenshots on the JVM and automate vrt.
+
+### CI
+
+- GitHub Actions: Automate wrokflow, this repository contains workflows to automate vrt.
+
+
