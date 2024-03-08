@@ -24,3 +24,4 @@ include(":core:model")
 include(":core:testing")
 
 include(":feature:home")
+include(":core:designsystem")

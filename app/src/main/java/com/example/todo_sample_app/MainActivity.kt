@@ -10,9 +10,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.example.designsystem.theme.TodosampleappTheme
 import com.example.home.navigation.HOME_GRAPH_ROUTE
 import com.example.home.navigation.homeNavGraph
-import com.example.todo_sample_app.ui.theme.TodosampleappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

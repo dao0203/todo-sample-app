@@ -16,6 +16,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 dependencies {
                     add("api", project(":core:model"))
                     add("implementation", project(":core:repository"))
+                    add("implementation", project(":core:designsystem"))
 
                     add("implementation", libs.findLibrary("lifecycle.viewmodel.compose").get())
                     add("implementation", libs.findLibrary("lifecycle.runtime.compose").get())
