@@ -12,3 +12,11 @@ fun LocalDateTime.toShortDate(): String {
     }
     return this.format(formatter)
 }
+
+@OptIn(FormatStringsInDatetimeFormats::class)
+fun LocalDateTime.toLongDate(): String {
+    val formatter = LocalDateTime.Format {
+        byUnicodePattern("yyyy年MM月dd日 HH:mm")
+    }
+    return this.format(formatter)
+}

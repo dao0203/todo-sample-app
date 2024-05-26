@@ -25,6 +25,7 @@ android {
 dependencies {
     api(projects.core.model)
     implementation(projects.core.local)
+    implementation(projects.core.notifications)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

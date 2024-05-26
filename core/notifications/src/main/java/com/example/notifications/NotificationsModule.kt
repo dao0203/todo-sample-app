@@ -1,7 +1,5 @@
-package com.example.notifications.di
+package com.example.notifications
 
-import com.example.notifications.Notifier
-import com.example.notifications.SystemTrayNotifier
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

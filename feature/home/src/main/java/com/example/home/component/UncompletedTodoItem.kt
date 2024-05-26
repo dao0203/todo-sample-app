@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.common.toShortDate
+import com.example.common.toLongDate
 import com.example.model.Todo
 
 @Composable
@@ -49,7 +49,7 @@ fun UncompletedTodoItem(
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                todo.dueDate.toShortDate(),
+                todo.dueDate.toLongDate(),
                 maxLines = 1,
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,

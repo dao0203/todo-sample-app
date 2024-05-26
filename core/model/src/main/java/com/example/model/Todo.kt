@@ -22,7 +22,7 @@ data class Todo(
     }
 
     companion object {
-        fun fromDataString(data: String): Todo {
+        fun fromJson(data: String): Todo {
             val json = JSONObject(data)
             return Todo(
                 id = json.getInt("id"),

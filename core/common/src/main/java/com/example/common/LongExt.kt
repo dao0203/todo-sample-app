@@ -13,3 +13,7 @@ fun Long.toLocalDateTime(): LocalDateTime {
 fun Long.toShortDate(): String {
     return this.toLocalDateTime().toShortDate()
 }
+
+fun Long.toLongDate(): String {
+    return this.toLocalDateTime().toLongDate()
+}

@@ -25,10 +25,12 @@ class SystemTrayNotifier @Inject internal constructor(
             return
         }
 
+        val currentTime = System.currentTimeMillis()
+        val delay = todo.dueDate - currentTime
+
         val notification = createTodoNotification {
-            setContentTitle("Todo expiring soon")
-                .setContentText(todo.title)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(todo.title))
+            setContentTitle(todo.title)
+                .setContentText("期限に近づきました！")
                 .setSmallIcon(com.example.common.R.drawable.ic_notification)
                 .setGroupSummary(true)
             priority = NotificationCompat.PRIORITY_DEFAULT

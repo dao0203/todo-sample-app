@@ -19,7 +19,7 @@ class NotificationWorker @AssistedInject constructor(
     override fun doWork(): Result {
         val input = inputData.getString("data") ?: return Result.failure()
 
-        val todo = Todo.fromDataString(input)
+        val todo = Todo.fromJson(input)
         notifier.postExpiringTodoNotification(todo)
         return Result.success()
     }
