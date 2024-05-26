@@ -16,6 +16,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 dependencies {
                     add("api", project(":core:model"))
+                    add("implementation", project(":core:common"))
                     add("implementation", project(":core:repository"))
                     add("implementation", project(":core:designsystem"))
 

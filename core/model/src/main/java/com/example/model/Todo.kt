@@ -10,29 +10,27 @@ data class Todo(
     val isCompleted: Boolean,
     val dueDate: Long
 ) {
-    fun toDataString(): String {
-        return """
-            {
-                "id": $id,
-                "title": "$title",
-                "description": "$description",
-                "categoryId": $categoryId,
-                "isCompleted": $isCompleted,
-                "dueDate": $dueDate
-            }
-        """.trimIndent()
+    fun toJson(): String {
+        return JSONObject().apply {
+            put("id", id)
+            put("title", title)
+            put("description", description)
+            put("category_id", categoryId)
+            put("is_completed", isCompleted)
+            put("due_date", dueDate)
+        }.toString()
     }
 
     companion object {
         fun fromDataString(data: String): Todo {
             val json = JSONObject(data)
             return Todo(
-                id = json.getString("id").toInt(),
+                id = json.getInt("id"),
                 title = json.getString("title"),
                 description = json.getString("description"),
-                categoryId = json.getString("categoryId").toInt(),
-                isCompleted = json.getBoolean("isCompleted"),
-                dueDate = json.getLong("dueDate")
+                categoryId = json.getInt("category_id"),
+                isCompleted = json.getBoolean("is_completed"),
+                dueDate = json.getLong("due_date")
             )
         }
     }

@@ -3,6 +3,7 @@ package com.example.home.todo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.model.Category
+import com.example.model.Todo
 import com.example.repository.CategoryRepository
 import com.example.repository.TodoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -82,7 +83,7 @@ class AddTodoViewModel @Inject constructor(
         if (vmState.value.selectedCategory == null) return
         viewModelScope.launch {
             vmState.update { it.copy(isLoading = true, enabledCompleteButton = false) }
-            val todo = com.example.model.Todo(
+            val todo = Todo(
                 id = 0,
                 title = vmState.value.title,
                 description = vmState.value.description,
