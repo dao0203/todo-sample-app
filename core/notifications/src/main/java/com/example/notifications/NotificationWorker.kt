@@ -11,9 +11,9 @@ import dagger.assisted.AssistedInject
 
 @HiltWorker
 class NotificationWorker @AssistedInject constructor(
-    @Assisted private val appContext: Context,
-    @Assisted private val workerParams: WorkerParameters,
-    @Assisted private val notifier: Notifier
+    @Assisted appContext: Context,
+    @Assisted workerParams: WorkerParameters,
+    private val notifier: Notifier
 ) : Worker(appContext, workerParams) {
 
     override fun doWork(): Result {
