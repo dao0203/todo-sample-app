@@ -7,5 +7,6 @@ val myTodo = Todo(
     title = "My Todo",
     description = "My Todo Description",
     categoryId = 1,
-    isCompleted = false
+    isCompleted = false,
+    dueDate = System.currentTimeMillis() - 10000
 )
