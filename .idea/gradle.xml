@@ -25,9 +25,11 @@
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/common" />
             <option value="$PROJECT_DIR$/core/designsystem" />
             <option value="$PROJECT_DIR$/core/local" />
             <option value="$PROJECT_DIR$/core/model" />
+            <option value="$PROJECT_DIR$/core/notifications" />
             <option value="$PROJECT_DIR$/core/repository" />
             <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/feature" />

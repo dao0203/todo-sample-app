@@ -12,17 +12,13 @@ internal fun Project.configureAndroidCompose(
             compose = true
         }
 
-        composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.2"
-        }
-
         testOptions {
             unitTests {
                 isIncludeAndroidResources = true
             }
         }
 
-        dependencies{
+        dependencies {
             val bom = libs.findLibrary("compose-bom").get()
             add("implementation", platform(bom))
             add("androidTestImplementation", platform(bom))
