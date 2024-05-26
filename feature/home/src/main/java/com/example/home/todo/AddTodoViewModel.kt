@@ -87,7 +87,8 @@ class AddTodoViewModel @Inject constructor(
                 title = vmState.value.title,
                 description = vmState.value.description,
                 categoryId = vmState.value.selectedCategory!!.id,
-                isCompleted = false
+                isCompleted = false,
+                dueDate = System.currentTimeMillis() - 10000
             )
             todoRepository.create(todo)
             vmState.update { it.copy(isLoading = false) }

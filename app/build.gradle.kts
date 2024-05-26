@@ -40,4 +40,9 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     androidTestImplementation(libs.androidx.test.ext.junit)
+
+    api(projects.core.notifications)
+
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 }

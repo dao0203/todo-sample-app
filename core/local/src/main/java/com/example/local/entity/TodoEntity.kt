@@ -25,13 +25,16 @@ data class TodoEntity(
     val categoryId: Int,
     @ColumnInfo(name = "is_completed")
     val isCompleted: Boolean,
+    @ColumnInfo(name = "due_date")
+    val dueDate: Long
 ) {
     fun toTodo() = Todo(
         id = id,
         title = title,
         description = description,
         categoryId = categoryId,
-        isCompleted = isCompleted
+        isCompleted = isCompleted,
+        dueDate = dueDate
     )
 
     companion object {
@@ -40,7 +43,8 @@ data class TodoEntity(
             title = todo.title,
             description = todo.description,
             categoryId = todo.categoryId,
-            isCompleted = todo.isCompleted
+            isCompleted = todo.isCompleted,
+            dueDate = todo.dueDate
         )
     }
 }
