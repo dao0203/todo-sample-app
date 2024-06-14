@@ -76,7 +76,7 @@ class DetailTodoViewModel @Inject constructor(
     fun deleteTodo() {
         viewModelScope.launch {
             vmState.update { it.copy(showDeleteTodoDialog = false) }
-            todoRepository.delete(todoId)
+            todoRepository.delete((uiState.value as DetailTodoUiState.Success).todo)
             _uiEvent.emit(DetailTodoUiEvent.NavigateToBack)
         }
     }
