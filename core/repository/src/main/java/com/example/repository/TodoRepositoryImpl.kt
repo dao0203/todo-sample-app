@@ -36,9 +36,10 @@ class TodoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun delete(todoId: Int) {
+    override suspend fun delete(todo: Todo) {
         withContext(Dispatchers.IO) {
-            todoEntityDao.delete(todoId)
+            todoEntityDao.delete(todo.id)
+            NotificationScheduler.cancel(context, todo)
         }
     }
 
