@@ -7,7 +7,6 @@ import com.example.model.Todo
 import com.example.repository.CategoryRepository
 import com.example.repository.TodoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -78,7 +77,7 @@ class AddTodoViewModel @Inject constructor(
 
     fun addTodo() {
         if (vmState.value.selectedCategory == null) return
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             vmState.update { it.copy(isLoading = true, enabledCompleteButton = false) }
             val todo = Todo(
                 id = 0,
