@@ -22,7 +22,7 @@ suspend fun <T> ReceiveTurbine<T>.gatherAsList(): List<T> {
 
 fun <T> List<T>.assertContainsExactly(vararg elements: T) {
     if (size != elements.size) {
-        Assert.assertEquals(elements.size, size)
+        Assert.fail("Expected ${elements.toList()} but was $this")
     }
 
     this.forEachIndexed { index, item ->

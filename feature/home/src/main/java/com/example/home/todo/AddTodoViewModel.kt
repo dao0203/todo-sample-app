@@ -7,6 +7,7 @@ import com.example.model.Todo
 import com.example.repository.CategoryRepository
 import com.example.repository.TodoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,15 +25,12 @@ private data class AddTodoViewModelState(
     val categoryDropDownExpanded: Boolean = false,
     val enabledCompleteButton: Boolean = false,
     val isLoading: Boolean = false,
-) {
-    fun defineEnabledCompleteButton() =
-        title.isNotBlank() && selectedCategory != null
-}
+)
 
 @HiltViewModel
 class AddTodoViewModel @Inject constructor(
     private val todoRepository: TodoRepository,
-    private val categoryRepository: CategoryRepository,
+    categoryRepository: CategoryRepository,
 ) : ViewModel() {
     private val vmState = MutableStateFlow(AddTodoViewModelState())
 
@@ -46,7 +44,7 @@ class AddTodoViewModel @Inject constructor(
     ) { categories, vmState -> convertToUiState(categories, vmState) }
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
+            SharingStarted.Lazily,
             AddTodoUiState()
         )
 
@@ -54,7 +52,7 @@ class AddTodoViewModel @Inject constructor(
         vmState.update {
             it.copy(
                 title = title,
-                enabledCompleteButton = it.defineEnabledCompleteButton()
+                enabledCompleteButton = title.isNotBlank() && it.selectedCategory != null
             )
         }
     }
@@ -63,7 +61,7 @@ class AddTodoViewModel @Inject constructor(
         vmState.update {
             it.copy(
                 description = description,
-                enabledCompleteButton = it.defineEnabledCompleteButton()
+                enabledCompleteButton = description.isNotBlank() && it.selectedCategory != null
             )
         }
     }
@@ -72,16 +70,15 @@ class AddTodoViewModel @Inject constructor(
         vmState.update {
             it.copy(
                 selectedCategory = category,
-                categoryDropDownExpanded = false
+                categoryDropDownExpanded = false,
+                enabledCompleteButton = it.title.isNotBlank()
             )
         }
-
-        vmState.update { it.copy(enabledCompleteButton = it.defineEnabledCompleteButton()) }
     }
 
     fun addTodo() {
         if (vmState.value.selectedCategory == null) return
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             vmState.update { it.copy(isLoading = true, enabledCompleteButton = false) }
             val todo = Todo(
                 id = 0,
@@ -92,7 +89,7 @@ class AddTodoViewModel @Inject constructor(
                 dueDate = System.currentTimeMillis() + 300 * 1000
             )
             todoRepository.create(todo)
-            vmState.update { it.copy(isLoading = false) }
+            vmState.update { it.copy(isLoading = false, enabledCompleteButton = true) }
             _uiEvent.emit(AddTodoUiEvent.NavigateToBack)
         }
     }

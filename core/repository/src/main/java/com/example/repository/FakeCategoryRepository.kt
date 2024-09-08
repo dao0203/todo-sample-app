@@ -5,7 +5,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeCategoryRepository : CategoryRepository {
-    private val categories = mutableListOf<Category>()
+    private val categories = mutableListOf<Category>(
+        Category(1, "Category 1"),
+        Category(2, "Category 2"),
+        Category(3, "Category 3"),
+    )
 
     override fun getAll(): Flow<List<Category>> {
         return flow {
