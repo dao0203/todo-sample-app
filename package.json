@@ -3,5 +3,8 @@
     "reg-keygen-git-hash-plugin": "^0.13.0",
     "reg-notify-github-plugin": "^0.13.0",
     "reg-suit": "^0.13.0"
+  },
+  "scripts": {
+    "ci:reg-suit": "reg-suit run"
   }
 }
