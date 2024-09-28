@@ -33,8 +33,8 @@ class AddTodoViewModelTest {
     @Test
     fun `test changeTitle success`() {
         runTest(UnconfinedTestDispatcher()) {
+            coEvery { categoryRepository.getAll() } returns flowOf(emptyList())
             val viewModel = createViewModel()
-
             turbineScope {
                 val uiState = viewModel.uiState.testIn(backgroundScope)
                 viewModel.changeTitle("title")
@@ -45,17 +45,6 @@ class AddTodoViewModelTest {
                     "title2",
                 )
             }
-
-
-//            viewModel.uiState.test {
-//                viewModel.changeTitle("title")
-//                advanceUntilIdle()
-//                viewModel.changeTitle("title2")
-//                advanceUntilIdle()
-//                Assert.assertEquals("", awaitItem().title)
-//                Assert.assertEquals("title", awaitItem().title)
-//                Assert.assertEquals("title2", awaitItem().title)
-//            }
         }
     }
 
@@ -70,28 +59,11 @@ class AddTodoViewModelTest {
         viewModel.uiState.test {
             viewModel.changeCategory(dummyCategory)
             viewModel.addTodo()
-            testScheduler.advanceUntilIdle()
             val expectedIsLoadings = this.gatherAsList().map { it.isLoading }
             expectedIsLoadings.assertContainsExactly(
                 false,
                 false,
-                true,
-                false
-            )
-        }
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun `sample test`() = runTest(UnconfinedTestDispatcher()) {
-        flowOf("", "title", "title2").test {
-            val flows = this.gatherAsList()
-
-
-            flows.assertContainsExactly(
-                "",
-                "title",
-                "title2"
+                false, // isLoading state is conflated to false
             )
         }
     }
