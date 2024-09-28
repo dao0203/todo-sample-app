@@ -3,6 +3,7 @@ package com.example.todo_sample_app
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>
@@ -19,9 +20,7 @@ internal fun Project.configureKotlinAndroid(
         }
 
         tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_17.toString()
-            }
+            compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
         }
     }
 }
