@@ -23,7 +23,7 @@ room = "2.6.1"
 work-runtime-ktx = "2.9.1"
 turbine = "1.1.0"
 mockk = "1.13.12"
-robospec = "0.20.0"
+robospec = "0.2.0"
 
 [libraries]
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -52,6 +52,7 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
