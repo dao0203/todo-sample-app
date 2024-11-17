@@ -37,7 +37,8 @@ fun RobotTestRule(
                 Intent(
                     ApplicationProvider.getApplicationContext(),
                     HiltTestActivity::class.java
-                ), bundle
+                ),
+                bundle,
             ),
             activityProvider = { rule ->
                 var activity: HiltTestActivity? = null
@@ -58,7 +59,7 @@ fun RobotTestRule(
 
 class RobotTestRule(
     private val testInstance: Any,
-    private val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<*>, *>,
+    val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<*>, *>,
 ) : TestRule {
     override fun apply(base: Statement?, description: Description?): Statement {
         return RuleChain
