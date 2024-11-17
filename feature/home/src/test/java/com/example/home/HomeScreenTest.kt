@@ -1,60 +1,75 @@
 package com.example.home
 
-import androidx.activity.ComponentActivity
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onRoot
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.testing.model.myTodoCategory
-import com.example.testing.roborazzi.DefaultRoborazziRule
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.captureRoboImage
+import com.example.designsystem.theme.TodosampleappTheme
+import com.example.testing.robot.ScreenRobot
+import com.example.testing.robot.ScreenRobotImpl
+import com.example.testing.rules.RobotTestRule
+import dagger.hilt.android.testing.BindValue
+import dagger.hilt.android.testing.HiltAndroidTest
+import io.github.takahirom.robospec.DescribedBehavior
+import io.github.takahirom.robospec.describeBehaviors
+import io.github.takahirom.robospec.execute
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
-import org.robolectric.annotation.GraphicsMode
+import org.robolectric.ParameterizedRobolectricTestRunner
+import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
-@GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(sdk = [33], qualifiers = RobolectricDeviceQualifiers.Pixel7)
-class HomeScreenTest {
-
-    @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+@RunWith(ParameterizedRobolectricTestRunner::class)
+@HiltAndroidTest
+class HomeScreenTest(
+    private val behavior: DescribedBehavior<HomeScreenRobot>
+) {
 
     @get:Rule
-    val roborazziRule = DefaultRoborazziRule
+    @BindValue
+    val robotTestRule = RobotTestRule(testInstance = this)
+
+    @Inject
+    lateinit var homeScreenRobot: HomeScreenRobot
+
 
     @Test
-    fun homeContent_success() {
-        val uiState = HomeUiState.Success(
-            uncompletedTodos = emptyList(),
-            completedTodos = emptyList(),
-            categories = listOf(myTodoCategory),
-            selectedCategoryId = 1
-        )
-        val snackBarHostState = SnackbarHostState()
-        composeTestRule.setContent {
-            MaterialTheme {
-                HomeContent(
-                    uiState = uiState,
-                    snackBarHostState = snackBarHostState,
-                    onSelectCategory = {},
+    fun test() {
+        runTest {
+            behavior.execute(homeScreenRobot)
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
+        fun data(): List<DescribedBehavior<HomeScreenRobot>> {
+            return describeBehaviors("HomeScreen") {
+                describe("when setup screen content") {
+                    doIt() { setupScreenContent() }
+                    itShould("show home screen content") {
+                        captureScreenWithCheck {
+                            // Check the screen
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+class HomeScreenRobot @Inject constructor(
+    private val screenRobotImpl: ScreenRobotImpl,
+) : ScreenRobot by screenRobotImpl {
+    fun setupScreenContent() {
+        robotTestRule.setContent {
+            TodosampleappTheme {
+                HomeScreen(
                     onClickAddCategory = {},
-                    onClickTodoComplete = {},
                     onClickAddTodo = {},
-                    onConfirmAlertDialog = {},
-                    onDismissAlertDialog = {},
-                    onDismissDropDownMenu = {},
-                    onClickDeleteCategory = {},
-                    onClickMoreButton = {},
-                    onClickDisplayableCompletedTodos = {},
                     onClickTodo = {},
                 )
             }
         }
-        composeTestRule.onRoot().captureRoboImage()
+        waitUntilIdle()
     }
+
+
 }

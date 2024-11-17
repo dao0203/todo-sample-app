@@ -24,6 +24,9 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                     add("implementation", libs.findLibrary("lifecycle.runtime.compose").get())
 
                     add("implementation", libs.findLibrary("hilt.navigation.compose").get())
+
+                    add("testImplementation", libs.findLibrary("robospec").get())
+
                 }
             }
         }

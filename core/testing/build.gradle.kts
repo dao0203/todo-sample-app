@@ -31,7 +31,12 @@ dependencies {
     api(libs.roborazzi.compose)
     api(libs.roborazzi.junit.rule)
     api(libs.ui.test.junit4)
+    api(libs.robospec)
+    api(libs.robolectric)
+    api(libs.hilt.android.testing)
+    ksp(libs.hilt.compiler)
     api(projects.core.model)
     api(libs.turbine)
+    api(libs.mockk)
     debugApi(libs.ui.test.manifest)
 }
