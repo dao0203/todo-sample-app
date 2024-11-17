@@ -2,21 +2,18 @@ package com.example.testing.rules
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.example.testing.HiltTestActivity
 import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.github.takahirom.roborazzi.captureScreenRoboImage
-import dagger.hilt.android.AndroidEntryPoint
 import org.junit.rules.RuleChain
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-
-@AndroidEntryPoint
-class HiltTestActivity : ComponentActivity()
+import javax.inject.Inject
 
 fun RobotTestRule(
     testInstance: Any,
@@ -57,7 +54,7 @@ fun RobotTestRule(
     )
 }
 
-class RobotTestRule(
+class RobotTestRule @Inject constructor(
     private val testInstance: Any,
     val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<*>, *>,
 ) : TestRule {
