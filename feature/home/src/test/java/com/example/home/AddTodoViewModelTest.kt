@@ -21,13 +21,11 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AddTodoViewModelTest {
-
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
     private val todoRepository: TodoRepository = mockk()
     private val categoryRepository: CategoryRepository = mockk()
-
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -49,28 +47,29 @@ class AddTodoViewModelTest {
     }
 
     @Test
-    fun `test addTodo success`() = runTest {
-        val dummyCategory = Category(1, "Category 1")
-        val dummyCategories = listOf(dummyCategory)
-        coEvery { categoryRepository.getAll() } returns flowOf(dummyCategories)
-        coEvery { todoRepository.create(any()) } returns Unit
-        val viewModel = createViewModel()
+    fun `test addTodo success`() =
+        runTest {
+            val dummyCategory = Category(1, "Category 1")
+            val dummyCategories = listOf(dummyCategory)
+            coEvery { categoryRepository.getAll() } returns flowOf(dummyCategories)
+            coEvery { todoRepository.create(any()) } returns Unit
+            val viewModel = createViewModel()
 
-        viewModel.uiState.test {
-            viewModel.changeCategory(dummyCategory)
-            viewModel.addTodo()
-            val expectedIsLoadings = this.gatherAsList().map { it.isLoading }
-            expectedIsLoadings.assertContainsExactly(
-                false,
-                false,
-                false, // isLoading state is conflated to false
-            )
+            viewModel.uiState.test {
+                viewModel.changeCategory(dummyCategory)
+                viewModel.addTodo()
+                val expectedIsLoadings = this.gatherAsList().map { it.isLoading }
+                expectedIsLoadings.assertContainsExactly(
+                    false,
+                    false,
+                    false, // isLoading state is conflated to false
+                )
+            }
         }
-    }
 
     private fun createViewModel(): AddTodoViewModel =
         AddTodoViewModel(
             todoRepository = this.todoRepository,
-            categoryRepository = this.categoryRepository
+            categoryRepository = this.categoryRepository,
         )
 }
