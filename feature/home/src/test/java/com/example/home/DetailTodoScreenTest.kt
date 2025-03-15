@@ -29,9 +29,10 @@ class DetailTodoScreenTest {
 
     @Test
     fun detailTodoContent_success() {
-        val uiState = DetailTodoUiState.Success(
-            todo = myTodo,
-        )
+        val uiState =
+            DetailTodoUiState.Success(
+                todo = myTodo,
+            )
         composeTestRule.setContent {
             MaterialTheme {
                 DetailTodoContent(
