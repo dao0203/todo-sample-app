@@ -116,7 +116,7 @@ internal fun HomeContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("ホーム") },
+                title = { Text("home") },
                 actions = {
                     HomeMoreVertDropDownMenu(
                         expanded = uiState.expandedDropDownMenu,
@@ -231,7 +231,7 @@ private fun HomeContentSuccess(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        "完了したタスク",
+                        "完了済みタスク",
                         modifier = Modifier.weight(1f)
                     )
                     if (uiState.showCompletedTodos)
