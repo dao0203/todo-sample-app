@@ -231,7 +231,7 @@ private fun HomeContentSuccess(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        "完了済みタスク",
+                        "完了済み",
                         modifier = Modifier.weight(1f)
                     )
                     if (uiState.showCompletedTodos)
