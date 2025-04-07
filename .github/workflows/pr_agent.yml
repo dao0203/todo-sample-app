@@ -18,6 +18,6 @@ jobs:
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_DESCRIPTION.EXTRA_INSTRUCTIONS: "Please use Japanese."
-          PR_REVIEWER.EXTRA_INSTRUCTIONS: 'Please use Japanese.'
-          PR_CODE_SUGGESTIONS.EXTRA_INSTRUCTIONS: 'Please use Japanese.'
+          PR_DESCRIPTION.EXTRA_INSTRUCTIONS: "日本語を使ってください。"
+          PR_REVIEWER.EXTRA_INSTRUCTIONS: '日本語を使ってください。'
+          PR_CODE_SUGGESTIONS.EXTRA_INSTRUCTIONS: '日本語を使ってください。'
