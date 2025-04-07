@@ -1,0 +1,5 @@
+[pr_reviewer]
+extra_instructions = "Please use Japanese in description."
+
+[pr_description]
+extra_instructions = "Please use Japanese in description."
