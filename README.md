@@ -119,5 +119,5 @@ management between libraries and modules and makes the development process more 
 
 ### CI
 
-- GitHub Actions: --Automate workflow, this repository contains workflows to automate vrt--.
+- GitHub Actions: ~~Automate workflow, this repository contains workflows to automate vrt~~.
     - it was archived.
