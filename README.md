@@ -39,6 +39,34 @@ The following technologies, libraries nad tools are used in this project.
 - **Clean Architecture**: adopts an architecture that clearly separates the responsibilities of each layer to increase the testability and scalability of the application.
 - **Repository Pattern**: An abstract layer between the data source and business logic layers hides the details of data retrieval and manipulation. This makes it easy to make changes to the data source without affecting the rest of the application.
 
+Here's the dependency graph of this repository.
+```mermaid %%dependency graph
+graph TB
+:app[:app] --> :core:notifications[:core:notifications]
+:app[:app] --> :core:repository[:core:repository]
+:app[:app] --> :core:model[:core:model]
+:app[:app] --> :core:designsystem[:core:designsystem]
+:app[:app] --> :feature:home[:feature:home]
+
+
+
+
+:core:local[:core:local] --> :core:model[:core:model]
+
+:core:notifications[:core:notifications] --> :core:model[:core:model]
+:core:notifications[:core:notifications] --> :core:common[:core:common]
+:core:repository[:core:repository] --> :core:model[:core:model]
+:core:repository[:core:repository] --> :core:local[:core:local]
+:core:repository[:core:repository] --> :core:notifications[:core:notifications]
+:core:testing[:core:testing] --> :core:model[:core:model]
+:feature:home[:feature:home] --> :core:testing[:core:testing]
+:feature:home[:feature:home] --> :core:model[:core:model]
+:feature:home[:feature:home] --> :core:common[:core:common]
+:feature:home[:feature:home] --> :core:repository[:core:repository]
+:feature:home[:feature:home] --> :core:designsystem[:core:designsystem]
+:feature:home[:feature:home] --> :core:testing[:core:testing]
+```
+
 ### Multi Module
 This project employs **multi module**, splitting modules by function to increase code reusability and reduce build time.
 
